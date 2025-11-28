@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🐟 La Pesca en Chile</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-blue: #0066cc;
+            --ocean-blue: #1e3a5f;
+            --light-blue: #e3f2fd;
+            --accent-orange: #ff6b35;
+            --text-dark: #2c3e50;
+            --text-light: #7f8c8d;
+            --white: #ffffff;
+            --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background: linear-gradient(to bottom, #e3f2fd 0%, #ffffff 100%);
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #1e3a5f 0%, #2980b9 100%);
+            color: var(--white);
+            padding: 3rem 2rem;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '🐟 🦈 🐠 🦞 🦑';
+            position: absolute;
+            top: 50%;
+            left: -10%;
+            font-size: 3rem;
+            opacity: 0.1;
+            animation: float 20s linear infinite;
+        }
+
+        @keyframes float {
+            from {
+                left: -10%;
+            }
+
+            to {
+                left: 110%;
+            }
+        }
+
+        header h1 {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        /* Navigation */
+        nav {
+            background: var(--white);
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--ocean-blue);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        nav a:hover {
+            background: var(--primary-blue);
+            color: var(--white);
+            transform: translateY(-2px);
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Cards */
+        .section {
+            background: var(--white);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease;
+        }
+
+        .section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+        }
+
+        .section h2 {
+            color: var(--ocean-blue);
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            border-bottom: 3px solid var(--primary-blue);
+            padding-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .section h3 {
+            color: var(--primary-blue);
+            font-size: 1.5rem;
+            margin-top: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, var(--primary-blue), var(--ocean-blue));
+            color: var(--white);
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: scale(1.05);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        /* Lists */
+        ul.feature-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        ul.feature-list li {
+            padding: 0.75rem;
+            margin-bottom: 0.5rem;
+            background: var(--light-blue);
+            border-left: 4px solid var(--primary-blue);
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        ul.feature-list li:hover {
+            background: var(--primary-blue);
+            color: var(--white);
+            transform: translateX(10px);
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .tab-button {
+            padding: 0.75rem 1.5rem;
+            border: 2px solid var(--primary-blue);
+            background: var(--white);
+            color: var(--primary-blue);
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .tab-button:hover {
+            background: var(--primary-blue);
+            color: var(--white);
+        }
+
+        .tab-button.active {
+            background: var(--primary-blue);
+            color: var(--white);
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Warning Box */
+        .warning-box {
+            background: #fff3cd;
+            border-left: 5px solid #ffc107;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 5px;
+        }
+
+        .success-box {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 5px;
+        }
+
+        /* Links */
+        .resource-links {
+            display: grid;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .resource-link {
+            padding: 1rem;
+            background: var(--light-blue);
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--text-dark);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .resource-link:hover {
+            background: var(--primary-blue);
+            color: var(--white);
+            transform: translateX(5px);
+        }
+
+        .resource-link::before {
+            content: '🔗';
+            font-size: 1.5rem;
+        }
+
+        /* Video Section */
+        .video-container {
+            background: var(--ocean-blue);
+            color: var(--white);
+            padding: 2rem;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .video-container h3 {
+            color: var(--white);
+            margin-bottom: 1rem;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--ocean-blue);
+            color: var(--white);
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2rem;
+            }
+
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .container {
+                padding: 1rem;
+            }
+        }
+
+        /* Scroll to top button */
+        .scroll-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--primary-blue);
+            color: var(--white);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .scroll-top:hover {
+            background: var(--ocean-blue);
+            transform: translateY(-5px);
+        }
+
+        .scroll-top.show {
+            display: flex;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>🐟 La Pesca en Chile</h1>
+        <p>Riqueza Natural, Sostenibilidad y Tradición</p>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="#definicion">Definición</a></li>
+            <li><a href="#importancia">Importancia</a></li>
+            <li><a href="#sostenibilidad">Sostenibilidad</a></li>
+            <li><a href="#modalidades">Modalidades</a></li>
+            <li><a href="#status">Status</a></li>
+            <li><a href="#recursos">Recursos</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <!-- Definición -->
+        <section id="definicion" class="section">
+            <h2>📖 Definición</h2>
+            <p>La pesca en Chile consiste en la <strong>extracción de peces y otros organismos acuáticos</strong> de su
+                medio natural, sin intervenir directamente los ecosistemas, y puede realizarse tanto en aguas dulces
+                como saladas.</p>
+        </section>
+
+        <!-- Importancia -->
+        <section id="importancia" class="section">
+            <h2>⭐ Importancia de la Pesca</h2>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <span class="stat-number">US$ 9B</span>
+                    <span class="stat-label">Exportaciones 2023<br>(9% del total nacional)</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">130K+</span>
+                    <span class="stat-label">Empleos directos e indirectos</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">78K</span>
+                    <span class="stat-label">Empleos en pesca artesanal</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">60%</span>
+                    <span class="stat-label">Desembarque artesanal nacional</span>
+                </div>
+            </div>
+
+            <h3>Aspectos Clave:</h3>
+            <ul class="feature-list">
+                <li><strong>Económica:</strong> Principal motor de exportaciones con US$ 9,000 millones anuales</li>
+                <li><strong>Social:</strong> Más de 130,000 empleos y comunidades costeras dependientes</li>
+                <li><strong>Cultural:</strong> Tradiciones ancestrales y gastronomía marina arraigada</li>
+                <li><strong>Alimentaria:</strong> Fuente esencial de proteína y líder en exportación de salmón, jurel,
+                    merluza y congrio</li>
+            </ul>
+        </section>
+
+        <!-- Sostenibilidad -->
+        <section id="sostenibilidad" class="section">
+            <h2>🌊 Sostenibilidad</h2>
+
+            <div class="success-box">
+                <strong>✅ Logro destacado:</strong> Chile protege cerca del <strong>40% de sus aguas
+                    territoriales</strong> (≈1,5 millones km²), superando el objetivo científico del 30%.
+            </div>
+
+            <p>Chile ha implementado una política pesquera sostenible destacada a nivel mundial:</p>
+
+            <ul class="feature-list">
+                <li>🛡️ Áreas marinas protegidas que cubren ~1,5 millones km²</li>
+                <li>📡 Seguimiento móvil de embarcaciones pesqueras publicado abiertamente</li>
+                <li>🚫 Combate activo contra la pesca ilegal (INDNR)</li>
+                <li>🤝 Colaboración con ONGs como The Nature Conservancy</li>
+                <li>📋 Vedas y áreas de manejo implementadas desde los años 90</li>
+            </ul>
+        </section>
+
+        <!-- Acuicultura vs Pesca -->
+        <section id="acuicultura" class="section">
+            <h2>🦐 Acuicultura vs Pesca</h2>
+
+            <div class="tabs">
+                <button class="tab-button active" onclick="showTab('pesca-tab')">Pesca</button>
+                <button class="tab-button" onclick="showTab('acuicultura-tab')">Acuicultura</button>
+            </div>
+
+            <div id="pesca-tab" class="tab-content active">
+                <h3>Pesca</h3>
+                <p><strong>Captura en el entorno natural</strong> sin intervención directa en el ecosistema.</p>
+                <ul class="feature-list">
+                    <li>Extracción de recursos silvestres</li>
+                    <li>Dependiente de poblaciones naturales</li>
+                    <li>Requiere regulación estricta para sostenibilidad</li>
+                </ul>
+            </div>
+
+            <div id="acuicultura-tab" class="tab-content">
+                <h3>Acuicultura</h3>
+                <p><strong>Crianza controlada</strong> de especies como salmón, mejillones, truchas y ostión.</p>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <span class="stat-number">54.6%</span>
+                        <span class="stat-label">Volumen exportado 2023</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">79.3%</span>
+                        <span class="stat-label">Valor exportado 2023</span>
+                    </div>
+                </div>
+
+                <ul class="feature-list">
+                    <li>🐟 <strong>Salmón:</strong> Chile es 2º productor mundial de salmón del Atlántico y líder en
+                        salmón Coho</li>
+                    <li>🦪 <strong>Mejillón chileno:</strong> Primer exportador mundial y segundo productor</li>
+                    <li>🐚 Ostión, chorito, trucha arcoíris</li>
+                    <li>🌿 Algas como pelillo</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Modalidades -->
+        <section id="modalidades" class="section">
+            <h2>⚓ Modalidades de Pesca</h2>
+
+            <h3>Según Escala:</h3>
+            <ul class="feature-list">
+                <li><strong>Artesanal:</strong> Embarcaciones pequeñas, selectiva, mayor sostenibilidad (~60% del
+                    desembarque nacional)</li>
+                <li><strong>Industrial:</strong> Flotas grandes con captura masiva orientada a exportaciones</li>
+            </ul>
+
+            <h3>Según Técnica:</h3>
+            <ul class="feature-list">
+                <li>🎣 Arrastre (alto impacto en hábitat)</li>
+                <li>🕸️ Redes de enmalle o cerco</li>
+                <li>🪤 Trampas y nasas</li>
+                <li>🪝 Línea o anzuelo (selectivo y sostenible)</li>
+            </ul>
+
+            <h3>Según Zona:</h3>
+            <ul class="feature-list">
+                <li>🏖️ Baja mar (zona costera)</li>
+                <li>🌊 Zona de altura (más allá de la plataforma continental)</li>
+                <li>🌏 Gran altura (aguas internacionales)</li>
+            </ul>
+        </section>
+
+        <!-- Condiciones Climáticas -->
+        <section id="clima" class="section">
+            <h2>🌡️ Condiciones Climáticas</h2>
+
+            <div class="success-box">
+                <h3 style="margin-top: 0;">✅ Condiciones Favorables</h3>
+                <ul>
+                    <li>💙 <strong>Corriente de Humboldt:</strong> Produce 15% de la pesca mundial en solo 0,1% del
+                        océano</li>
+                    <li>🌊 Afloramientos de nutrientes</li>
+                    <li>🌤️ Clima templado</li>
+                    <li>🦠 Alta concentración de fitoplancton</li>
+                </ul>
+            </div>
+
+            <div class="warning-box">
+                <h3 style="margin-top: 0;">⚠️ Condiciones Desfavorables</h3>
+                <ul>
+                    <li>🌡️ Fenómenos El Niño/La Niña</li>
+                    <li>☠️ Floraciones algales (marea roja)</li>
+                    <li>⛈️ Tormentas y eventos extremos</li>
+                    <li>🌍 Impacto del cambio climático</li>
+                </ul>
+            </div>
+
+            <h3>🐟 Corriente de Humboldt - El Ecosistema Más Productivo</h3>
+            <ul class="feature-list">
+                <li>Representa solo 0,1% del océano total</li>
+                <li>Produce 15% de la pesca mundial</li>
+                <li>Genera 50% de la harina de pescado mundial</li>
+                <li>Especies clave: anchoveta, jurel, atunes, pingüino de Humboldt</li>
+            </ul>
+        </section>
+
+        <!-- Status y Gobernanza -->
+        <section id="status" class="section">
+            <h2>📊 Status y Gobernanza</h2>
+
+            <div class="warning-box">
+                <strong>⚠️ Situación Crítica:</strong>
+                <ul>
+                    <li><strong>28%</strong> de las pesquerías están agotadas</li>
+                    <li><strong>29%</strong> están sobreexplotadas</li>
+                    <li>Solo <strong>3 pesquerías</strong> se consideraban sanas en 2021</li>
+                </ul>
+            </div>
+
+            <h3>Pesquerías en Riesgo (2021):</h3>
+            <ul class="feature-list">
+                <li>🐟 Merluza común - Sobreexplotación</li>
+                <li>🐟 Merluza austral - Sobreexplotación</li>
+                <li>🐟 Congrio dorado - Sobreexplotación</li>
+            </ul>
+
+            <h3>Desafíos de Gobernanza:</h3>
+            <ul class="feature-list">
+                <li>📜 Retrasos en la aprobación de la Ley de Fraccionamiento</li>
+                <li>⚖️ Distribución desigual de cuotas (Ley Longueira sesgada hacia grandes operadores)</li>
+                <li>✊ Protestas recientes de pescadores artesanales</li>
+                <li>🔄 Proceso participativo 2023-2025 hacia nueva Ley General de Acuicultura (750+ actores)</li>
+            </ul>
+
+            <div class="success-box">
+                <strong>✅ Iniciativas Positivas:</strong>
+                <ul>
+                    <li>🌐 Plataforma "Caleta en Línea" para venta directa de pescadores artesanales</li>
+                    <li>📊 Datos de recursos, vedas y medidas de sostenibilidad accesibles</li>
+                    <li>🤝 Proceso participativo con más de 750 actores involucrados</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Recursos -->
+        <section id="recursos" class="section">
+            <h2>📚 Enlaces Recomendados</h2>
+
+            <div class="resource-links">
+                <a href="#" class="resource-link">
+                    <div>
+                        <strong>La importancia de la pesca artesanal en Chile</strong><br>
+                        <small>Ovejero Noticias - Proyecto de Ley General de Pesca</small>
+                    </div>
+                </a>
+
+                <a href="#" class="resource-link">
+                    <div>
+                        <strong>Chile muestra liderazgo mundial en la transparencia pesquera</strong><br>
+                        <small>Global Fishing Watch - Monitoreo de embarcaciones</small>
+                    </div>
+                </a>
+
+                <a href="#" class="resource-link">
+                    <div>
+                        <strong>La inmensa riqueza de la Corriente de Humboldt</strong><br>
+                        <small>El País (América Futura) - Ecosistema más productivo del mundo</small>
+                    </div>
+                </a>
+            </div>
+
+            <div class="video-container">
+                <h3>🎥 Video Recomendado</h3>
+                <p><strong>Mala Pesca: La depredación pesquera en Chile</strong></p>
+                <p>Este documental narra el impacto de la pesca industrial, las desigualdades en la distribución de
+                    cuotas y las voces de las comunidades artesanales.</p>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <p>🐟 La Pesca en Chile - Información actualizada a 2025</p>
+        <p>Fuentes: Ovejero Noticias, Global Fishing Watch, El País, Informes oficiales</p>
+    </footer>
+
+    <div class="scroll-top" onclick="scrollToTop()">↑</div>
+
+    <script>
+        // Tab functionality
+        function showTab(tabId) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+
+            // Remove active class from all buttons
+            document.querySelectorAll('.tab-button').forEach(button => {
+                button.classList.remove('active');
+            });
+
+            // Show selected tab
+            document.getElementById(tabId).classList.add('active');
+
+            // Add active class to clicked button
+            event.target.classList.add('active');
+        }
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Scroll to top button
+        const scrollTopBtn = document.querySelector('.scroll-top');
+
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                scrollTopBtn.classList.add('show');
+            } else {
+                scrollTopBtn.classList.remove('show');
+            }
+        });
+
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // Add animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.section').forEach(section => {
+            section.style.opacity = '0';
+            section.style.transform = 'translateY(20px)';
+            section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(section);
+        });
+    </script>
+</body>
+
+</html>
